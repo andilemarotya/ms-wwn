@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
             Text("WWNews", style: TextStyle(color: Colors.blue))
           ],
         ),
+        centerTitle: true,
         elevation: 0.0,
       ),
       body: _loading
@@ -75,7 +76,7 @@ class _HomeState extends State<Home> {
                       child: ListView.builder(
                           itemCount: articles.length,
                           shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             return BlogTile(
                               imageUrl: articles[index].urlToImage,
