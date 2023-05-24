@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                       child: ListView.builder(
                           itemCount: articles.length,
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             return BlogTile(
                               imageUrl: articles[index].urlToImage,
