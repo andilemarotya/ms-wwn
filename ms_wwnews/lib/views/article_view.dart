@@ -24,6 +24,8 @@ class _ArticleViewState extends State<ArticleView> {
   void initState() {
     super.initState();
     controlla = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
           setState(() {
@@ -38,7 +40,15 @@ class _ArticleViewState extends State<ArticleView> {
         onPageFinished: (url) {
           setState(() {
             loadingPercentage = 100;
-          });
+          },
+        );
+        },
+        onWebResourceError: (WebResourceError error) {},
+        onNavigationRequest: (NavigationRequest request) {
+          if (request.url.startsWith('https://www.youtube.com/')) {
+            return NavigationDecision.prevent;
+          }
+          return NavigationDecision.navigate;
         },
       ))
       ..loadRequest(

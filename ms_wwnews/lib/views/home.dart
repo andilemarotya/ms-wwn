@@ -4,13 +4,12 @@ import 'package:ms_wwnews/models/categori_model.dart';
 import 'package:ms_wwnews/views/article_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-
 import '../helper/data.dart';
 import '../helper/news.dart';
 import '../models/article_model.dart';
 import '../navigation_controls.dart';
 import '../menu.dart';
-
+import 'category_news.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,7 +20,6 @@ class _HomeState extends State<Home> {
   List<CategoryModel> categories = [];
   List<ArticleModel> articles = [];
   bool _loading = true;
-  
 
   @override
   void initState() {
@@ -29,7 +27,6 @@ class _HomeState extends State<Home> {
     super.initState();
     categories = getCategories();
     getNews();
-   
   }
 
   getNews() async {
@@ -105,13 +102,20 @@ class _HomeState extends State<Home> {
 }
 
 class CategoryTile extends StatelessWidget {
-  final imageUrl, categoryName;
-  CategoryTile({this.imageUrl, this.categoryName});
+  final String imageUrl, categoryName;
+  CategoryTile({required this.imageUrl, required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CategoryNews(
+                      category: categoryName.toLowerCase(),
+                    )));
+      },
       child: Container(
         margin: EdgeInsets.only(right: 14),
         child: Stack(
